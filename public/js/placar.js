@@ -1,3 +1,6 @@
+$('#botao-placar').click(mostraPlacar);
+
+
 function inserePlacar() {
     var corpoTabela = $('.placar').find('tbody');
     var usuario = 'Williane'
@@ -7,6 +10,15 @@ function inserePlacar() {
     linha.find('.botao-remover').click(removeLinha);
 
     corpoTabela.prepend(linha); //append adiciona no final prepend adiciona no inicio
+    $('.placar').slideDown(400);
+    scrollPlacar();
+}
+
+function scrollPlacar(){
+    var posicaoPlacar = $('.placar').offset().top;
+    $('html, body').animate({
+        scrollTop: posicaoPlacar
+    }, 1000);
 }
 
 function novaLinha(usuario, numPalavras) {
@@ -28,5 +40,16 @@ function novaLinha(usuario, numPalavras) {
 
 function removeLinha() {
     event.preventDefault();
-    $(this).parent().parent().remove();
+    var linha = $(this).parent().parent();
+    linha.fadeOut(function(){
+        linha.remove();
+    });
+    /* setTimeout(function (){
+        linha.remove();
+    },600); */
+}
+
+function mostraPlacar(){
+    //$('.placar').show(); aparece e hide esconde, toggle ja verifca qual deve ser feito
+    $('.placar').stop().slideToggle(600);
 }
